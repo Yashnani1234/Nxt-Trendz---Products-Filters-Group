@@ -127,8 +127,8 @@ class AllProductsSection extends Component {
       })
     } else {
       this.setState({
-        isLoading: true,
         apiStatus: apiStatusConstants.failure,
+        isLoading: true,
       })
     }
   }
@@ -146,6 +146,14 @@ class AllProductsSection extends Component {
       },
       this.getProducts,
     )
+  }
+
+  changeRating = activeRatingId => {
+    this.setState({activeRatingId}, this.getProducts)
+  }
+
+  changeCategory = activeCategoryId => {
+    this.setState({activeCategoryId}, this.getProducts)
   }
 
   enterSearchInput = () => {
@@ -221,7 +229,7 @@ class AllProductsSection extends Component {
       case apiStatusConstants.failure:
         return this.renderFailureView()
       case apiStatusConstants.inProgress:
-        return this.renderLoadingView()
+        return this.renderLoader()
       default:
         return null
     }
@@ -246,8 +254,8 @@ class AllProductsSection extends Component {
           enterSearchInput={this.enterSearchInput}
           activeCategoryId={activeCategoryId}
           activeRatingId={activeRatingId}
-          changeCategory={this.changeSortby}
-          changeRating={this.changeSortby}
+          changeCategory={this.changeCategory}
+          changeRating={this.changeRating}
           clearFilters={this.clearFilters}
         />
 
